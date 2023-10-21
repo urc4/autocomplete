@@ -1,0 +1,76 @@
+# Compiled C++ files
+*.o
+*.obj
+*.exe
+*.out
+
+# Build and dependency directories
+build/
+dist/
+node_modules/
+vendor/
+
+# IDE and editor-specific files and directories
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Log and temporary files
+*.log
+*.tmp
+*.swp
+
+# Configuration files (containing secrets)
+config.json
+.env
+
+# Database files
+*.sqlite
+*.db
+
+# User-generated content or data
+uploads/
+
+# Generated source code files
+auto-generated/
+
+# Compiled language directories
+bin/
+
+# Runtime files
+*.pid
+*.socket
+
+# Log and backup files
+*.bak
+*.zip
+*.gz
+
+# Operating system files and directories
+desktop.ini
+
+# Secrets and keys
+secrets.json
+
+# Generated documentation
+doxygen-output/
+
+# Node.js and npm/Yarn
+node_modules/
+yarn.lock
+package-lock.json
+
+# User-specific configuration files
+.config/
+
+# Temporary directories or files
+temp/
+.tmp/
+
+# Compiled Python files
+__pycache__/
+*.pyc
+
+# Generated images
+thumbnails/
