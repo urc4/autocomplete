@@ -74,3 +74,6 @@ __pycache__/
 
 # Generated images
 thumbnails/
+
+# Data directory
+data/
