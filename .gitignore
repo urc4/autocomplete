@@ -77,3 +77,6 @@ thumbnails/
 
 # Data directory
 data/
+
+#Build directory
+build/
