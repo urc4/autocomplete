@@ -1,6 +1,7 @@
 #include <vector>
 #include <utility>
 #include <unordered_map>
+#include <boost/container_hash/hash.hpp>
 
 #ifndef STATE_H
 #define STATE_H
@@ -18,7 +19,7 @@ public:
 
 private:
     // for each char, stores the corresponding transition state and value
-    std::unordered_map<char, std::pair<state*, int>> transitions;
+    std::unordered_map<char, std::pair<state*, int>, boost::hash<char>> transitions;
 
     bool final;
 };
