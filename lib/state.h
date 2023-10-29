@@ -19,7 +19,7 @@ public:
 
 private:
     // for each char, stores the corresponding transition state and value
-    std::unordered_map<char, std::pair<state*, int>, boost::hash<char>> transitions;
+    std::unordered_map<char, std::pair<state*, int>> transitions;
 
     bool final;
 };
