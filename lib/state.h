@@ -1,6 +1,7 @@
 #include <vector>
 #include <utility>
 #include <unordered_map>
+#include <unordered_set>
 #include <boost/container_hash/hash.hpp>
 
 #ifndef STATE_H
@@ -17,11 +18,26 @@ public:
     int get_output(char input); //returns the transition value
     void set_output(char input, int output); //set the value for a transition
 
+    //friend classes
+    friend class std::hash<state>;
+    friend class std::equal_to<state>;
+
 private:
     // for each char, stores the corresponding transition state and value
     std::unordered_map<char, std::pair<state*, int>> transitions;
-
     bool final;
+};
+
+// Hasher for state class
+class std::hash<state> {
+public:
+    std::size_t operator()(const state& state) const;
+};
+
+// Comparator for state class
+class std::equal_to<state> {
+public:
+    bool operator()(const state& lhs, const state& rhs) const;
 };
 
 #endif
