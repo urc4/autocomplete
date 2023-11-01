@@ -45,7 +45,7 @@ void state::set_output(char input, int output) {
 }
 
 std::size_t std::hash<state*>::operator()(const state* state) const {
-    std::size_t hash, seed;
+    std::size_t seed;
     seed = 0;
 
     boost::hash_combine(seed, state->final);
@@ -55,11 +55,15 @@ std::size_t std::hash<state*>::operator()(const state* state) const {
         boost::hash_combine(seed, t.second.first);
         boost::hash_combine(seed, t.second.second);
     }
-    return hash;
+    return seed;
 }
 
 bool std::equal_to<state*>::operator()(const state* lhs, const state* rhs) const {
-    if (lhs->final != rhs->final) {
+    if(lhs->transitions.size() != rhs->transitions.size()) {
+        return false;
+    }
+
+    if(lhs->final != rhs->final) {
         return false;
     }
 

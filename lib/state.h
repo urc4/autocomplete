@@ -2,6 +2,7 @@
 #include <utility>
 #include <unordered_map>
 #include <unordered_set>
+#include <iostream>
 #include <boost/container_hash/hash.hpp>
 
 #ifndef STATE_H
@@ -29,12 +30,14 @@ private:
 };
 
 // Hasher for state class
+template<>
 class std::hash<state*> {
 public:
     std::size_t operator()(const state* state) const;
 };
 
 // Comparator for state class
+template<>
 class std::equal_to<state*> {
 public:
     bool operator()(const state* lhs, const state* rhs) const;
