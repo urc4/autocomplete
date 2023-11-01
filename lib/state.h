@@ -19,8 +19,8 @@ public:
     void set_output(char input, int output); //set the value for a transition
 
     //friend classes
-    friend class std::hash<state>;
-    friend class std::equal_to<state>;
+    friend class std::hash<state*>;
+    friend class std::equal_to<state*>;
 
 private:
     // for each char, stores the corresponding transition state and value
@@ -29,15 +29,24 @@ private:
 };
 
 // Hasher for state class
-class std::hash<state> {
+class std::hash<state*> {
 public:
-    std::size_t operator()(const state& state) const;
+    std::size_t operator()(const state* state) const;
 };
 
 // Comparator for state class
-class std::equal_to<state> {
+class std::equal_to<state*> {
 public:
-    bool operator()(const state& lhs, const state& rhs) const;
+    bool operator()(const state* lhs, const state* rhs) const;
+};
+
+class dictionary {
+public:
+    state* member(state* s);
+    void insert(state* s);
+    
+private:
+    std::unordered_set<state*> hash;
 };
 
 #endif
