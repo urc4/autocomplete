@@ -18,6 +18,8 @@ public:
     void set_transition(char input, state *next, int output = 0); //set transition state and value (optionally)
     int get_output(char input); //returns the transition value
     void set_output(char input, int output); //set the value for a transition
+    state* copy() const;
+    void clear();
 
     //friend classes
     friend class std::hash<state*>;
@@ -47,6 +49,7 @@ class dictionary {
 public:
     state* member(state* s);
     void insert(state* s);
+    state* find_minimized(state* s);
     
 private:
     std::unordered_set<state*> hash;

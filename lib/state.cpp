@@ -44,6 +44,17 @@ void state::set_output(char input, int output) {
     (got->second).second = output;
 }
 
+state* state::copy() const {
+    state* s = new state();
+    s->transitions = this->transitions;
+    s->final = this->final;
+}
+
+void state::clear() {
+    this->transitions.clear();
+    this->final = false;
+}
+
 std::size_t std::hash<state*>::operator()(const state* state) const {
     std::size_t seed;
     seed = 0;
@@ -95,4 +106,13 @@ state* dictionary::member(state* s) {
 
 void dictionary::insert(state *s) {
     hash.insert(s);
+}
+
+state* dictionary::find_minimized(state *s) {
+    state* r = member(s);
+    if(r == nullptr) {
+        r = s->copy();
+        insert(r);
+    }
+    return r;
 }
