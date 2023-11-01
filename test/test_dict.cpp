@@ -16,6 +16,10 @@ int main() {
     dictionary d;
 
     A->set_transition('a', B, 3);
+    A->set_transition('b', D, 2);
+    A->set_transition('c', E, 1);
+    C->set_transition('b', D, 2);
+    C->set_transition('c', E, 1);
     C->set_transition('a', B, 3);
     D->set_transition('b', B, 3);
     E->set_transition('a', B, 2);
@@ -26,7 +30,8 @@ int main() {
     d.insert(E);
     d.insert(F);
 
-    std::cout << " " << A << " " << B << " " << d.member(C) << " " << d.member(D) << " " << d.member(E) << " " << d.member(F) << "\n";
+    std::cout << " " << A << " " << d.member(C) << "\n";
+    std::cout << " " << d.member(D) << " " << d.member(E) << " " << d.member(F) << "\n";
     std::cout << " " << d.member(B) << " " << return_nullptr() << "\n";
     
     return 0;

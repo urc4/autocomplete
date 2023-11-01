@@ -50,10 +50,10 @@ std::size_t std::hash<state*>::operator()(const state* state) const {
 
     boost::hash_combine(seed, state->final);
 
-    for(const auto& t : state->transitions) {
-        boost::hash_combine(seed, t.first);
-        boost::hash_combine(seed, t.second.first);
-        boost::hash_combine(seed, t.second.second);
+    for(auto it = state->transitions.begin(); it != state->transitions.end(); ++it) {
+        boost::hash_combine(seed, it->first);
+        boost::hash_combine(seed, it->second.first);
+        boost::hash_combine(seed, it->second.second);
     }
     return seed;
 }
@@ -67,15 +67,15 @@ bool std::equal_to<state*>::operator()(const state* lhs, const state* rhs) const
         return false;
     }
 
-    for(const auto& t : lhs->transitions) {
-        auto got = rhs->transitions.find(t.first);
+    for(auto it = lhs->transitions.begin(); it != lhs->transitions.end(); ++it) {
+        auto got = rhs->transitions.find(it->first);
         if(got == rhs->transitions.end()) {
             return false;
         }
-        if(got->first != t.first) {
+        if(got->second.first != it->second.first) {
             return false;
         }
-        if(got->second != t.second) {
+        if(got->second.second != it->second.second) {
             return false;
         }
     }
