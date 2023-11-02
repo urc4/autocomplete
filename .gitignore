@@ -80,3 +80,6 @@ data/
 
 #Build directory
 build/
+
+#Ignore a.out from test/
+test/a.out

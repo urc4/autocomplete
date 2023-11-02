@@ -48,6 +48,7 @@ state* state::copy() const {
     state* s = new state();
     s->transitions = this->transitions;
     s->final = this->final;
+    return s;
 }
 
 void state::clear() {
