@@ -1,3 +1,5 @@
-add_executable(main main.cpp)
-target_link_libraries(main state)
-include_directories(/usr/include)
+# Create the executable
+add_executable(autocomplete main.cpp)
+
+# Link the libraries to the executable
+target_link_libraries(autocomplete minimal_fst)
