@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <iostream>
+#include <string>
 #include <boost/container_hash/hash.hpp>
 
 #ifndef STATE_H
@@ -16,10 +17,13 @@ public:
     void set_final(bool is_final); //set true if final state
     state* get_transition(char input); //returns a pointer to the state corresponding to input char
     void set_transition(char input, state *next, int output = 0); //set transition state and value (optionally)
+    void set_state_output(std::string s);
+    std::string get_state_output();
     int get_output(char input); //returns the transition value
     void set_output(char input, int output); //set the value for a transition
     state* copy() const;
     void clear();
+    void dfs(std::string prefix, int n);
 
     //friend classes
     friend class std::hash<state*>;
@@ -27,8 +31,10 @@ public:
 
 private:
     // for each char, stores the corresponding transition state and value
+    void dfs_aux(std::string prefix, int n, int& leaf_count);
     std::map<char, std::pair<state*, int>> transitions;
     bool final;
+    std::string output;
 };
 
 // Hasher for state class

@@ -18,7 +18,7 @@ minimal_fst::minimal_fst(std::string filename) {
     std::string curr_word, word_suffix, common_prefix, temp_string;
     std::string prev_word = "";
     std::set<std::string> temp_set;
-    std::size_t i, j, prefix_length_plus1;
+    int i, j, prefix_length;
     //todo: implement int curr_output;
     //todo: implement int c;
 
@@ -31,20 +31,20 @@ minimal_fst::minimal_fst(std::string filename) {
     }
 
     while(std::getline(file, curr_word)) {
-        i = 1;
+        i = 0;
         curr_word_index++;
         while(i < curr_word.length() && i < prev_word.length() && prev_word[i] == curr_word[i]) {
             i++;
         }
-        prefix_length_plus1 = i;
+        prefix_length = i;
 
-        for(i = prev_word.length(); i >= prefix_length_plus1; i--) {
-            temp_state[i-1]->set_transition(curr_word[i], dict.find_minimized(temp_state[i]));
+        for(i = prev_word.length() - 1; i >= prefix_length; i--) {
+            temp_state[i]->set_transition(prev_word[i], dict.find_minimized(temp_state[i+1]));
         }
 
-        for(i = prefix_length_plus1; i <= curr_word.length(); i++) {
-            temp_state[i]->clear();
-            temp_state[i-1]->set_transition(curr_word[i], temp_state[i]);
+        for(i = prefix_length; i <= curr_word.length()-1; i++) {
+            temp_state[i+1]->clear();
+            temp_state[i]->set_transition(curr_word[i], temp_state[i+1]);
         }
 
         if(curr_word != prev_word) {
@@ -52,14 +52,28 @@ minimal_fst::minimal_fst(std::string filename) {
             //todo implement output
         }
 
-        for(j = 1; j <= prefix_length_plus1-1; j++) {
+        for(j = 1; j <= prefix_length; j++) {
             //todo implement output
         }
+        prev_word = curr_word;
     }
 
-    for(i = curr_word.length(); i >= 1; i--) {
-        temp_state[i-1]->set_transition(prev_word[i], dict.find_minimized(temp_state[i]));
+    for(i = curr_word.length()-1; i >= 0; i--) {
+        temp_state[i]->set_transition(prev_word[i], dict.find_minimized(temp_state[i+1]));
     }
 
     root = dict.find_minimized(temp_state[0]);
+}
+
+void minimal_fst::display(std::string prefix, int n) {
+    state *s = root;
+    for(auto c : prefix) {
+        s = s->get_transition(c);
+        if(s == nullptr) {
+            std::cout << "Nao foram encontrados resultados\n";
+            return;
+        }
+    }
+    std::cout << "Resultados:\n";
+    s->dfs(prefix, n);
 }
