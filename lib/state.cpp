@@ -153,12 +153,13 @@ void dictionary::insert(state *s) {
     hash.insert(s);
 }
 
-state* dictionary::find_minimized(state *s, int& count) {
+state* dictionary::find_minimized(state *s, int& count, int& size) {
     state* r = member(s);
     if(r == nullptr) {
         r = s->copy();
         insert(r);
         count++;
+        size += sizeof(*r);
     }
     return r;
 }

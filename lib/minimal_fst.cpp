@@ -39,7 +39,7 @@ minimal_fst::minimal_fst(std::string filename) {
         prefix_length = i;
 
         for(i = prev_word.length() - 1; i >= prefix_length; i--) {
-            temp_state[i]->set_transition(prev_word[i], dict.find_minimized(temp_state[i+1], count));
+            temp_state[i]->set_transition(prev_word[i], dict.find_minimized(temp_state[i+1], count, size));
         }
 
         for(i = prefix_length; i <= curr_word.length()-1; i++) {
@@ -54,14 +54,18 @@ minimal_fst::minimal_fst(std::string filename) {
     }
 
     for(i = curr_word.length()-1; i >= 0; i--) {
-        temp_state[i]->set_transition(prev_word[i], dict.find_minimized(temp_state[i+1], count));
+        temp_state[i]->set_transition(prev_word[i], dict.find_minimized(temp_state[i+1], count, size));
     }
 
-    root = dict.find_minimized(temp_state[0], count);
+    root = dict.find_minimized(temp_state[0], count, size);
 }
 
 int minimal_fst::count_vertices() {
     return count;
+}
+
+int minimal_fst::get_size() {
+    return size;
 }
 
 void minimal_fst::display(std::string prefix, int n) {

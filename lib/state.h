@@ -55,7 +55,7 @@ class dictionary {
 public:
     state* member(state* s);
     void insert(state* s);
-    state* find_minimized(state* s, int& count);
+    state* find_minimized(state* s, int& count, int& size);
     
 private:
     std::unordered_set<state*> hash;

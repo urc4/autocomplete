@@ -29,8 +29,10 @@ int main() {
     auto end = std::chrono::high_resolution_clock::now();
 
     std::chrono::duration<double> elapsed = end - start;
-    std::cout << "Tempo de build: " << elapsed.count() << " segundos \n";
-    std::cout << "Tamanho: " << fst.count_vertices() << " vértices \n\n";
+    std::cout << "Data Structure: Finite State Transducer\n";
+    std::cout << "Build time: " << elapsed.count() << " segundos \n";
+    std::cout << "Space: " << fst.get_size() << " bytes \n";
+    std::cout << "Vertices: " << fst.count_vertices() << "\n\n";
 
     std::cout << "Digite a sua busca (Aperte ENTER para sair)\n";
     std::string input;
