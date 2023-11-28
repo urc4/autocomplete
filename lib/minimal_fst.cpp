@@ -39,7 +39,7 @@ minimal_fst::minimal_fst(std::string filename) {
         prefix_length = i;
 
         for(i = prev_word.length() - 1; i >= prefix_length; i--) {
-            temp_state[i]->set_transition(prev_word[i], dict.find_minimized(temp_state[i+1]));
+            temp_state[i]->set_transition(prev_word[i], dict.find_minimized(temp_state[i+1], count));
         }
 
         for(i = prefix_length; i <= curr_word.length()-1; i++) {
@@ -49,31 +49,42 @@ minimal_fst::minimal_fst(std::string filename) {
 
         if(curr_word != prev_word) {
             temp_state[curr_word.length()]->set_final(true);
-            //todo implement output
-        }
-
-        for(j = 1; j <= prefix_length; j++) {
-            //todo implement output
         }
         prev_word = curr_word;
     }
 
     for(i = curr_word.length()-1; i >= 0; i--) {
-        temp_state[i]->set_transition(prev_word[i], dict.find_minimized(temp_state[i+1]));
+        temp_state[i]->set_transition(prev_word[i], dict.find_minimized(temp_state[i+1], count));
     }
 
-    root = dict.find_minimized(temp_state[0]);
+    root = dict.find_minimized(temp_state[0], count);
+}
+
+int minimal_fst::count_vertices() {
+    return count;
 }
 
 void minimal_fst::display(std::string prefix, int n) {
     state *s = root;
+    int i = 0;
+    std::vector<std::string> output;
+    std::cout << "------------------------\n";
     for(auto c : prefix) {
         s = s->get_transition(c);
         if(s == nullptr) {
             std::cout << "Nao foram encontrados resultados\n";
+            for(; i < n-1; i++) {
+                std::cout << "\033[2K\n";
+            }
             return;
         }
     }
-    std::cout << "Resultados:\n";
-    s->dfs(prefix, n);
+    int n_words = s->dfs(output, prefix, n);
+    for(auto word : output) {
+        std::cout << "\033[2K\033[0G" << word << "\n";
+        i++;
+    }
+    for(; i < n; i++) {
+        std::cout << "\033[2K\n";
+    }
 }

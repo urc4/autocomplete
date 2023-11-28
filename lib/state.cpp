@@ -73,9 +73,9 @@ void state::clear() {
     this->output = "";
 }
 
-void state::dfs_aux(std::string prefix, int n, int& leaf_count) {
+void state::dfs_aux(std::vector<std::string>& output, std::string prefix, int n, int& leaf_count) {
     if(final) {
-       std::cout << prefix << "\n";
+       output.push_back(prefix);
        leaf_count++;
     }
 
@@ -87,13 +87,15 @@ void state::dfs_aux(std::string prefix, int n, int& leaf_count) {
        if(leaf_count >= n) {
            return;
        }
-       it->second.first->dfs_aux(prefix + it->first, n, leaf_count);
+       it->second.first->dfs_aux(output, prefix + it->first, n, leaf_count);
     }
 }
 
-void state::dfs(std::string prefix, int n) {
+int state::dfs(std::vector<std::string>& output, std::string prefix, int n) {
+    output.clear();
     int leaf_count = 0;
-    dfs_aux(prefix, n, leaf_count);
+    dfs_aux(output, prefix, n, leaf_count);
+    return leaf_count;
 }
 
 
@@ -151,11 +153,12 @@ void dictionary::insert(state *s) {
     hash.insert(s);
 }
 
-state* dictionary::find_minimized(state *s) {
+state* dictionary::find_minimized(state *s, int& count) {
     state* r = member(s);
     if(r == nullptr) {
         r = s->copy();
         insert(r);
+        count++;
     }
     return r;
 }

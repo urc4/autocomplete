@@ -23,7 +23,7 @@ public:
     void set_output(char input, int output); //set the value for a transition
     state* copy() const;
     void clear();
-    void dfs(std::string prefix, int n);
+    int dfs(std::vector<std::string>& output, std::string prefix, int n);
 
     //friend classes
     friend class std::hash<state*>;
@@ -31,7 +31,7 @@ public:
 
 private:
     // for each char, stores the corresponding transition state and value
-    void dfs_aux(std::string prefix, int n, int& leaf_count);
+    void dfs_aux(std::vector<std::string>& output, std::string prefix, int n, int& leaf_count);
     std::map<char, std::pair<state*, int>> transitions;
     bool final;
     std::string output;
@@ -55,7 +55,7 @@ class dictionary {
 public:
     state* member(state* s);
     void insert(state* s);
-    state* find_minimized(state* s);
+    state* find_minimized(state* s, int& count);
     
 private:
     std::unordered_set<state*> hash;

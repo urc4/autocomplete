@@ -11,9 +11,11 @@
 class minimal_fst {
 public:
     minimal_fst(std::string filename);
+    int count_vertices();
     void display(std::string prefix, int n);
 private:
     state* root;
+    int count = 0;
 };
 
 class InexistentFileException : public std::exception {
