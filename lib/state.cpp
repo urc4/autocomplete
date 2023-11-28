@@ -163,3 +163,5 @@ state* dictionary::find_minimized(state *s, int& count, int& size) {
     }
     return r;
 }
+
+//a

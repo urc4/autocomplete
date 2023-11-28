@@ -92,3 +92,4 @@ void minimal_fst::display(std::string prefix, int n) {
         std::cout << "\033[2K\n";
     }
 }
+//a
