@@ -27,7 +27,7 @@ int main()
 {
    // Build tree
    auto start = std::chrono::high_resolution_clock::now();
-   minimal_fst fst("../data/american-english-dict-ascii");
+   minimal_fst fst("../data/american-english-dict-sorted");
    auto end = std::chrono::high_resolution_clock::now();
 
    std::chrono::duration<double> elapsed = end - start;

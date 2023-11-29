@@ -1,6 +1,4 @@
-# from https://github.com/julesjacobs/levenshtein/blob/master/levenshtein.py
-    
-        venshteinAutomaton:
+class LevenshteinAutomaton:
     def __init__(self, string, n):
         self.string = string
         self.max_edits = n

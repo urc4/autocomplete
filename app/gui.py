@@ -1,4 +1,6 @@
 import tkinter as tk
+from utils import words_within_distance, dict_list
+
 
 ALGORITHM = None
 
@@ -9,6 +11,10 @@ def on_fst_click():
     btn_trie.config(bg=original_bg_color)
     global ALGORITHM
     ALGORITHM = "FST"
+    ent_word.delete(0, tk.END)
+    lbl_results.config(state=tk.NORMAL)
+    lbl_results.delete(1.0, tk.END)
+    lbl_results.config(state=tk.DISABLED)
 
 
 def on_levesthein_click():
@@ -17,6 +23,10 @@ def on_levesthein_click():
     btn_trie.config(bg=original_bg_color)
     global ALGORITHM
     ALGORITHM = "LEV"
+    ent_word.delete(0, tk.END)
+    lbl_results.config(state=tk.NORMAL)
+    lbl_results.delete(1.0, tk.END)
+    lbl_results.config(state=tk.DISABLED)
 
 
 def on_trie_click():
@@ -25,20 +35,30 @@ def on_trie_click():
     btn_trie.config(bg="green")
     global ALGORITHM
     ALGORITHM = "TRIE"
+    ent_word.delete(0, tk.END)
+    lbl_results.config(state=tk.NORMAL)
+    lbl_results.delete(1.0, tk.END)
+    lbl_results.config(state=tk.DISABLED)
 
 
 def on_key(event):
-    if ALGORITHM == "FST":
-        print("Key event for FST")
-    elif ALGORITHM == "LEV":
-        print("Key event for Levesthein")
-    elif ALGORITHM == "TRIE":
-        print("Key event for Trie")
-
-    text_entered = ent_word.get()
+    target_word = ent_word.get()
+    max_distance = 1
     lbl_results.config(state=tk.NORMAL)
     lbl_results.delete(1.0, tk.END)
-    lbl_results.insert(tk.END, text_entered)
+
+    if ALGORITHM == "FST":
+        print("Key event for FST")
+        lbl_results.insert(tk.END, target_word)
+    elif ALGORITHM == "LEV":
+        results = words_within_distance(target_word, dict_list, max_distance)
+        results_text = " ".join(results)
+        lbl_results.insert(tk.END, results_text)
+
+    elif ALGORITHM == "TRIE":
+        print("Key event for Trie")
+        lbl_results.insert(tk.END, target_word)
+
     lbl_results.config(state=tk.DISABLED)
 
 
